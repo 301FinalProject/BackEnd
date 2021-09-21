@@ -5,12 +5,12 @@ const express = require('express');
 
 const mongoose = require('mongoose');
 let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection erro:'));
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function () {
     console.log('Connected to Mongo!')
 });
 
-mongoose.connect(process.env.MONGODB_URL);
+mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 
