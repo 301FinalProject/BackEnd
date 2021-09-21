@@ -39,7 +39,18 @@ app.get('/halo', async (req, res) => {
       return;
     }
 
-    
+    const location = req.query.location;
+
+    const findQuery = {};
+    // Only if the query includes location, add location to our filter
+    if (location) {
+      findQuery.location = location;
+    }
+    const halo = await Halo.find(findQuery);
+  
+    res.send(halo);
+  })
+
 const mongoose = require('mongoose');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
