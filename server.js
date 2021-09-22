@@ -44,6 +44,7 @@ const app = express();
 
 const cors = require('cors');
 const { getSeason } = require('./modules/haloSeason');
+const { getPlayer } = require('./modules/haloPlayer');
 app.use(cors());
 app.use(express.json());
 
