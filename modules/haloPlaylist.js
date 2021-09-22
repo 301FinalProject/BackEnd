@@ -24,7 +24,7 @@ async function getPlaylist(request, response) {
         errorHandler(err, response);
     }
 }
-
+//update this name
 class Season {
     constructor(activeSeason) {
         this.name = seasonData.name;
