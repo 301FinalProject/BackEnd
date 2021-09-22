@@ -29,6 +29,32 @@ async function verifyUser(authorization) {
   return await verify(token, getKey, {});
 }
 
+
+
+const mongoose = require('mongoose');
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function () {
+    console.log('Connected to Mongo!')
+});
+
+mongoose.connect(process.env.MONGODB_URI);
+
+const app = express();
+
+const cors = require('cors');
+const { getPlaylist } = require('./modules/haloPlaylist');
+app.use(cors());
+app.use(express.json());
+
+app.get('/', (request, response) => {
+    response.send('You have reached the GAME HIVE')
+})
+
+const playlist = require('./modules/haloPlaylist.js');
+app.get('/haloPlaylist', playlist.getPlaylist);
+
+
 app.get('/halo', async (req, res) => {
     const { authorization } = req.headers;
   
@@ -51,24 +77,6 @@ app.get('/halo', async (req, res) => {
     res.send(halo);
   })
 
-const mongoose = require('mongoose');
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function () {
-    console.log('Connected to Mongo!')
-});
-
-mongoose.connect(process.env.MONGODB_URI);
-
-const app = express();
-
-const cors = require('cors');
-app.use(cors());
-app.use(express.json());
-
-app.get('/', (request, response) => {
-    response.send('You have reached the GAME HIVE')
-})
 
 const PORT = process.env.PORT;
 if(!parseInt(PORT)) throw 'Invalid PORT';
