@@ -1,9 +1,9 @@
 const axios = require('axios');
 const errorHandler = require('../errorHandler');
 
-module.exports = { getPlaylist };
+module.exports = { getSeason };
 
-async function getPlaylist(request, response) {
+async function getSeason(request, response) {
     const appid = process.env.HALO_API_KEY;
 
     try {
@@ -13,12 +13,14 @@ async function getPlaylist(request, response) {
 
         let activeSeason = seasonsResults.data.find(season => season.isActive);
         console.log('This is the first active season..............................', activeSeason);
+        let season = new Season(activeSeason);
+        response.send(season);
 
         // console.log('Here is the seasons info.........................................................!!', playlistResults.data);
 
         // let seasonData = seasonResults.data.season.map(season => new Season(season));
 
-        response.send(activeSeason);
+        // response.send(activeSeason);
     }
     catch (err) {
         errorHandler(err, response);
@@ -26,8 +28,10 @@ async function getPlaylist(request, response) {
 }
 //update this name
 class Season {
-    constructor(activeSeason) {
-        this.name = seasonData.name;
-        // this.description = playlistData.playlist[0].description;
+    constructor(seasonData) {
+        this.playlists = seasonData.playlists;
+        this.playlistName = seasonData.playlists.name;
+        this.playlistDescription = seasonData.playlists.description;
+        this.playlistID = seasonData.playlists.id;
     }
 }
