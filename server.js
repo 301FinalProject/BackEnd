@@ -43,7 +43,7 @@ mongoose.connect(process.env.MONGODB_URI);
 const app = express();
 
 const cors = require('cors');
-const { getPlaylist } = require('./modules/haloPlaylist');
+const { getSeason } = require('./modules/haloSeason');
 app.use(cors());
 app.use(express.json());
 
@@ -51,8 +51,8 @@ app.get('/', (request, response) => {
     response.send('You have reached the GAME HIVE')
 })
 
-const playlist = require('./modules/haloPlaylist.js');
-app.get('/haloPlaylist', playlist.getPlaylist);
+const playlist = require('./modules/haloSeason.js');
+app.get('/haloSeason', playlist.getSeason);
 
 
 app.get('/halo', async (req, res) => {

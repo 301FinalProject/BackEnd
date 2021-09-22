@@ -1,13 +1,18 @@
 const axios = require('axios');
 const errorHandler = require('../errorHandler');
 
-module.exports = { getPlaylist };
+module.exports = { getPlayer };
 
-async function getPlaylist(request, response) {
+async function getPlayer(request, response) {
     const appid = process.env.HALO_API_KEY;
+    const playlistID = 
 
     try {
-        const seasonsResults = await axios.get('https://www.haloapi.com/metadata/h5/metadata/seasons', {
+        const playlistResults = await axios.get('https://www.haloapi.com/stats/h5/player-leaderboards/csr/46f2fe0c-8478-4593-82a3-bfb01c1cd63f/d34730b9-bb48-4569-bcdf-afba9c358019', {
+            params: {
+                id: 
+            }
+
             headers: { 'Ocp-Apim-Subscription-Key': appid },
         });
 
@@ -28,6 +33,8 @@ async function getPlaylist(request, response) {
 class Season {
     constructor(activeSeason) {
         this.name = seasonData.name;
+        this.description = seasonData.description;
+        this.id = seasonData.id;
         // this.description = playlistData.playlist[0].description;
     }
 }
