@@ -51,8 +51,11 @@ app.get('/', (request, response) => {
     response.send('You have reached the GAME HIVE')
 })
 
-const playlist = require('./modules/haloSeason.js');
-app.get('/haloSeason', playlist.getSeason);
+const season = require('./modules/haloSeason.js');
+app.get('/haloSeason', season.getSeason);
+
+const player = require('./modules/haloPlayer.js');
+app.get('/haloPlayer', player.getPlayer);
 
 
 app.get('/halo', async (req, res) => {
