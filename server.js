@@ -40,6 +40,10 @@ db.once('open', function () {
 
 mongoose.connect(process.env.MONGODB_URI);
 
+
+//import Mongoose model
+const Player = require('./models/playerRoute');
+
 const app = express();
 
 const cors = require('cors');
@@ -82,8 +86,29 @@ app.get('/halo', async (req, res) => {
   })
 
 
+
+  //adding a player from the front-end
+  app.post('./addplayer', addPlayerHandler);
+  function addPlayerHandler(req, res) {
+    let { Gamertag, Rank } = req.body;
+  }
+
+
 const PORT = process.env.PORT;
 if(!parseInt(PORT)) throw 'Invalid PORT';
 
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+
+async function postPlayer(req, res) {
+  console.log('headers', req.headers);
+  console.log('body', req.body);
+
+  try {
+    const newPlayer = await PLayer.create(req.body);
+    res.send(newPlayer);
+  }
+  catch (err) {
+    handleError(err, res);
+  }
+}
 
