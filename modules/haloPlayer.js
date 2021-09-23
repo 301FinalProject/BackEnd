@@ -8,13 +8,9 @@ async function getPlayer(request, response) {
     const playlistID = request.query.id;
 
     try {
-        const playlistResults = await axios.get('https://www.haloapi.com/stats/h5/player-leaderboards/csr/46f2fe0c-8478-4593-82a3-bfb01c1cd63f', {
+        const playlistResults = await axios.get(`https://www.haloapi.com/stats/h5/player-leaderboards/csr/46f2fe0c-8478-4593-82a3-bfb01c1cd63f/${playlistID}`, {
             
-        params: {
-                id: playlistID,
-            },
-
-            headers: { 'Ocp-Apim-Subscription-Key': appid },
+                headers: { 'Ocp-Apim-Subscription-Key': appid },
         });
         console.log('I have hit the API..........................................!!!!!', playlistResults);
         
