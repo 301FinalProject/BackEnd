@@ -88,10 +88,7 @@ app.get('/halo', async (req, res) => {
 
 
   //adding a player from the front-end
-  app.post('./addplayer', addPlayerHandler);
-  function addPlayerHandler(req, res) {
-    let { Gamertag, Rank } = req.body;
-  }
+  app.post('/player', postPlayer);
 
 
 const PORT = process.env.PORT;
@@ -104,7 +101,7 @@ async function postPlayer(req, res) {
   console.log('body', req.body);
 
   try {
-    const newPlayer = await PLayer.create(req.body);
+    const newPlayer = await Player.create(req.body);
     res.send(newPlayer);
   }
   catch (err) {
