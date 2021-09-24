@@ -3,8 +3,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const playerSchema = new Schema({
-    Gamertag:  String,
-    Rank:  String,
+    playerName:  {
+        type:  String,
+        required: true,
+    },
+    playerRank:  {
+        type: String,
+        required: true,
+    }
 });
 
 const Player = mongoose.model('Player', playerSchema);

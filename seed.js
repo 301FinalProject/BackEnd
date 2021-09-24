@@ -3,27 +3,27 @@ require('dotenv').config();
 
 mongoose.connect(process.env.MONGODB_URI);
 
-const Player = require('./models/playerRoute');  //constructor
+const Player = require('./models/playerSchema');  //constructor
 
 async function seed() {
     console.log('Deleting existing books')
     await Player.deleteMany({});
 
     const myPlayer1 = new Player({
-        Gamertag: "DeAtHBoO",
-        Rank: "1"
+        playerName: "DeAtHBoO",
+        playerRank: "1"
     });
     await myPlayer1.save();
 
     const myPlayer2 = new Player({
-        Gamertag: "Degenerate9402",
-        Rank: "2"
+        playerName: "Degenerate9402",
+        playerRank: "2"
     });
     await myPlayer2.save();
 
     const myPlayer3 = new Player({
-        Gamertag: "SmoothSaylor",
-        Rank: "3"
+        playerName: "SmoothSaylor",
+        playerRank: "3"
     });
     await myPlayer3.save();
 

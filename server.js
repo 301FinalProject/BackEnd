@@ -42,13 +42,14 @@ mongoose.connect(process.env.MONGODB_URI);
 
 
 //import Mongoose model
-const Player = require('./models/playerRoute');
+const Player = require('./models/playerSchema');
+const errorHandler = require('./errorHandler');
 
 const app = express();
 
 const cors = require('cors');
-const { getSeason } = require('./modules/haloSeason');
-const { getPlayer } = require('./modules/haloPlayer');
+
+const { getSavedPlayers} = require('./modules/haloSavedPlayer');
 app.use(cors());
 app.use(express.json());
 
@@ -86,9 +87,15 @@ app.get('/halo', async (req, res) => {
   })
 
 
+app.get('/haloSavedPlayer', getSavedPlayers);
+
+
+
+
 
   //adding a player from the front-end
   app.post('/player', postPlayer);
+
 
 
 const PORT = process.env.PORT;
@@ -105,7 +112,7 @@ async function postPlayer(req, res) {
     res.send(newPlayer);
   }
   catch (err) {
-    handleError(err, res);
+    errorHandler(err, res);
   }
 }
 
